@@ -1,7 +1,96 @@
 # An-lisis-y-dise-o-2
-Tareas 
-r3r3r3r3
-kp´P
-fhfhhhhhhdhd
-FMR3KFJQ34Fdejfnnef
-viawbvja,dbndsnbsnbd
+
+
+import java.util.LinkedList;
+
+class Nodo {
+    int clave;
+    String valor;
+
+    public Nodo(int clave, String valor) {
+        this.clave = clave;
+        this.valor = valor;
+    }
+}
+
+class TablaHash {
+    private LinkedList<Nodo>[] tabla;
+    private int tamaño;
+
+    @SuppressWarnings("unchecked")
+    public TablaHash(int tamaño) {
+        this.tamaño = tamaño;
+        tabla = new LinkedList[tamaño];
+        for (int i = 0; i < tamaño; i++) {
+            tabla[i] = new LinkedList<>();
+        }
+    }
+
+    private int funcionHash(int clave) {
+        return clave % tamaño;
+    }
+
+    public void insertar(int clave, String valor) {
+        int indice = funcionHash(clave);
+        for (Nodo nodo : tabla[indice]) {
+            if (nodo.clave == clave) {
+                nodo.valor = valor; // Actualizar si ya existe la clave
+                return;
+            }
+        }
+        tabla[indice].add(new Nodo(clave, valor));
+    }
+
+    public String buscar(int clave) {
+        int indice = funcionHash(clave);
+        for (Nodo nodo : tabla[indice]) {
+            if (nodo.clave == clave) {
+                return nodo.valor;
+            }
+        }
+        return null;
+    }
+
+    public boolean eliminar(int clave) {
+        int indice = funcionHash(clave);
+        for (Nodo nodo : tabla[indice]) {
+            if (nodo.clave == clave) {
+                tabla[indice].remove(nodo);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void mostrar() {
+        for (int i = 0; i < tamaño; i++) {
+            System.out.print("Índice " + i + ": ");
+            for (Nodo nodo : tabla[i]) {
+                System.out.print("(" + nodo.clave + ": " + nodo.valor + ") -> ");
+            }
+            System.out.println("None");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        TablaHash tabla = new TablaHash(10);
+
+        // Insertar elementos
+        tabla.insertar(12, "A");
+        tabla.insertar(22, "B");
+        tabla.insertar(42, "C");
+
+        // Mostrar tabla
+        tabla.mostrar();
+
+        // Buscar elemento
+        System.out.println("Buscar 22: " + tabla.buscar(22));
+
+        // Eliminar elemento
+        tabla.eliminar(22);
+        System.out.println("Después de eliminar 22:");
+        tabla.mostrar();
+    }
+}
