@@ -90,6 +90,7 @@ public class Main {
 
         // Eliminar elemento
         tabla.eliminar(22);
+
         System.out.println("Después de eliminar 22:");
         tabla.mostrar();
     }
