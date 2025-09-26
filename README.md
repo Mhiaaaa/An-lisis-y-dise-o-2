@@ -6,6 +6,7 @@ import java.util.LinkedList;
 class Nodo {
     int clave;
     String valor;
+    
 
     public Nodo(int clave, String valor) {
         this.clave = clave;
@@ -90,6 +91,7 @@ public class Main {
 
         // Eliminar elemento
         tabla.eliminar(22);
+        
 
         System.out.println("Después de eliminar 22:");
         tabla.mostrar();
