@@ -1,19 +1,19 @@
 # An-lisis-y-dise-o-2
 
+
+
+
+
 import java.util.LinkedList;
-
-
 class Nodo {
     int clave;
     String valor;
     
-
     public Nodo(int clave, String valor) {
         this.clave = clave;
         this.valor = valor;
     }
 }
-
 class TablaHash {
     private LinkedList<Nodo>[] tabla;
     private int tamaño;
