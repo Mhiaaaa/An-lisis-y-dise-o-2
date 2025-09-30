@@ -1,0 +1,42 @@
+
+package busquedasecuencialbloques;
+
+public class BusquedaSecuencialBloques
+{
+
+    // Método de búsqueda secuencial mediante bloques
+    public static int buscar(int[] datos, int bloque, int valorBuscado) 
+    {
+        int n = datos.length;
+
+        // Recorremos bloque por bloque
+        for (int i = 0; i < n; i += bloque) {
+            // Revisamos cada elemento dentro del bloque
+            for (int j = i; j < i + bloque && j < n; j++) 
+            {
+                if (datos[j] == valorBuscado) {
+                    return j; // Devuelve la posición donde se encontró
+                }
+            }
+        }
+
+        return -1; // Si no se encuentra el valor
+    }
+    public static void main(String[] args)
+    {
+        // Simulamos un archivo con números
+        int[] archivo = {3, 8, 15, 20, 25, 30, 35, 40};
+
+        int bloque = 3; // Tamaño de bloque
+        int valor = 25; // Valor que queremos buscar
+
+        int posicion = buscar(archivo, bloque, valor);
+
+        if (posicion != -1) {
+            System.out.println("El valor " + valor + " se encontro en la posicion: " + posicion);
+        } else {
+            System.out.println("El valor " + valor + " no se encontro en el archivo.");
+        }
+    }
+}
+
