@@ -1,4 +1,4 @@
-
+ hh g h h t t ycu 
 import java.util.LinkedList;
 class Nodo {
     int clave;
@@ -8,7 +8,7 @@ class Nodo {
         this.clave = clave;
         this.valor = valor;
     }
-
+  
 }
 class TablaHash {
     private LinkedList<Nodo>[] tabla;
