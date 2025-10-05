@@ -1,7 +1,8 @@
-efaweawrgrgsdfsfdsdsdsdsds
+
 package busquedasecuencialbloques;
 public class BusquedaSecuencialBloques
-{
+{ 
+
     // Método de búsqueda secuencial mediante bloques
     public static int buscar(int[] datos, int bloque, int valorBuscado) 
     {
