@@ -1,0 +1,122 @@
+import java.util.*;
+
+// Lista invertida: palabra -> lista de documentos
+class ListaInvertida {
+    private Map<String, Set<Integer>> invertida;
+
+    public ListaInvertida() {
+        invertida = new HashMap<>();
+    }
+
+    public void insertar(String palabra, int docId) {
+        invertida.putIfAbsent(palabra, new HashSet<>());
+        invertida.get(palabra).add(docId);
+    }
+
+    public Set<Integer> buscar(String palabra) {
+        return invertida.getOrDefault(palabra, Collections.emptySet());
+    }
+}
+
+// Nodo para multilista
+class NodoMultilista {
+    int docId;
+    String autor;
+    String categoria;
+    NodoMultilista siguienteAutor;
+    NodoMultilista siguienteCategoria;
+
+    public NodoMultilista(int docId, String autor, String categoria) {
+        this.docId = docId;
+        this.autor = autor;
+        this.categoria = categoria;
+        this.siguienteAutor = null;
+        this.siguienteCategoria = null;
+    }
+}
+
+// Multilista que enlaza por autor y categoría
+class Multilista {
+    private Map<String, NodoMultilista> cabezaAutor;
+    private Map<String, NodoMultilista> cabezaCategoria;
+
+    public Multilista() {
+        cabezaAutor = new HashMap<>();
+        cabezaCategoria = new HashMap<>();
+    }
+
+    public void insertar(NodoMultilista nodo) {
+        // Insertar por autor
+        if (!cabezaAutor.containsKey(nodo.autor)) {
+            cabezaAutor.put(nodo.autor, nodo);
+        } else {
+            nodo.siguienteAutor = cabezaAutor.get(nodo.autor);
+            cabezaAutor.put(nodo.autor, nodo);
+        }
+
+        // Insertar por categoría
+        if (!cabezaCategoria.containsKey(nodo.categoria)) {
+            cabezaCategoria.put(nodo.categoria, nodo);
+        } else {
+            nodo.siguienteCategoria = cabezaCategoria.get(nodo.categoria);
+            cabezaCategoria.put(nodo.categoria, nodo);
+        }
+    }
+
+    public List<Integer> buscarPorAutor(String autor) {
+        List<Integer> resultados = new ArrayList<>();
+        NodoMultilista actual = cabezaAutor.get(autor);
+        while (actual != null) {
+            resultados.add(actual.docId);
+            actual = actual.siguienteAutor;
+        }
+        return resultados;
+    }
+
+    public List<Integer> buscarPorCategoria(String categoria) {
+        List<Integer> resultados = new ArrayList<>();
+        NodoMultilista actual = cabezaCategoria.get(categoria);
+        while (actual != null) {
+            resultados.add(actual.docId);
+            actual = actual.siguienteCategoria;
+        }
+        return resultados;
+    }
+}
+
+// Programa principal
+public class BusquedaDocumentos {
+    public static void main(String[] args) {
+        ListaInvertida listaInvertida = new ListaInvertida();
+        Multilista multilista = new Multilista();
+
+        // Documentos: id, autor, categoría, contenido
+        Object[][] documentos = {
+            {1, "Ana", "Ciencia", "Algoritmos y estructuras de datos"},
+            {2, "Luis", "Literatura", "Poemas y cuentos"},
+            {3, "Ana", "Ciencia", "Introducción a la programación"},
+            {4, "Marta", "Arte", "Historia del arte moderno"},
+            {5, "Luis", "Ciencia", "Matemáticas avanzadas"}
+        };
+
+        for (Object[] doc : documentos) {
+            int docId = (int) doc[0];
+            String autor = (String) doc[1];
+            String categoria = (String) doc[2];
+            String contenido = (String) doc[3];
+
+            NodoMultilista nodo = new NodoMultilista(docId, autor, categoria);
+            multilista.insertar(nodo);
+
+            String[] palabras = contenido.toLowerCase().split("\\s+");
+            for (String palabra : palabras) {
+                listaInvertida.insertar(palabra, docId);
+            }
+        }
+
+        // Ejemplos de búsqueda
+        System.out.println("Documentos que contienen 'algoritmos': " + listaInvertida.buscar("algoritmos"));
+        System.out.println("Documentos del autor 'Ana': " + multilista.buscarPorAutor("Ana"));
+        System.out.println("Documentos de la categoría 'Ciencia': " + multilista.buscarPorCategoria("Ciencia"));
+    }
+}
