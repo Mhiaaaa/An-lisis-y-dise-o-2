@@ -118,5 +118,6 @@ public class BusquedaDocumentos {
         System.out.println("Documentos que contienen 'algoritmos': " + listaInvertida.buscar("algoritmos"));
         System.out.println("Documentos del autor 'Ana': " + multilista.buscarPorAutor("Ana"));
         System.out.println("Documentos de la categoría 'Ciencia': " + multilista.buscarPorCategoria("Ciencia"));
-    }
+        }
 }
+
