@@ -1,4 +1,7 @@
 import java.util.*;
+
+
+
 // Lista invertida: palabra -> lista de documentos
 class ListaInvertida {
     private Map<String, Set<Integer>> invertida;
