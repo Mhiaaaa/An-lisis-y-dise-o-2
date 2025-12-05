@@ -1,7 +1,7 @@
 system.out.printl
 
 
-jejjejsjskws
+gggccxcc. vvnj vvhjhv 
 // Lista invertida: palabra -> lista de documentos
 class ListaInvertida {
     private Map<String, Set<Integer>> invertida;
